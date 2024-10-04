@@ -1,0 +1,5 @@
+# Ignore env files or directories
+env
+his
+__pycache__
+*.html
