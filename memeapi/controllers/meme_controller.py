@@ -4,18 +4,23 @@ from models.meme_request import MemeRequest
 from services.meme_service import generate_image, save_meme_data, fetch_meme_by_key
 from bson import ObjectId
 import base64
-from memeapi.utils.params_filter import filter_params
+from utils.params_filter import filter_params
 from io import BytesIO
+import traceback
 
 router = APIRouter()
 
 @router.post("/generate")
 async def generate_meme(request: MemeRequest):
-    try:
-        allowed_params = ["prompt", "image_count", "random_seed", "negative_prompt"]
-        filtered_params = filter_params(request, allowed_params)
-    except:
-        return 
+    # try:
+    #     allowed_params = ["prompt", "image_count", "random_seed", "negative_prompt"]
+    #     filtered_params = filter_params(request, allowed_params)
+    # except Exception as e:
+    #     # 打印错误信息
+    #     print(f"Error occurred: {e}")
+    #     # 打印详细的堆栈信息
+    #     traceback.print_exc()
+    #     pass
     keys = []
     for _ in range(request.image_count):
         img_io = generate_image(request.prompt, request.random_seed)
