@@ -19,12 +19,11 @@ async def handle_message(update: Update, context: CallbackContext) -> None:
     await context.bot.delete_message(chat_id=chat_id, message_id=message_id)
 
     prompt = update.message.text
-    image_base64 = generate_meme(prompt)
-
-    if image_base64:
-        image_data = base64.b64decode(image_base64)
-        await context.bot.send_photo(chat_id=update.message.chat_id, photo=image_data)
-    else:
+    try:
+        img_bytes = generate_meme(prompt)
+        await context.bot.send_photo(chat_id=update.message.chat_id, photo=img_bytes)
+    except Exception as e:
+        print(f"generate meme error: {e}")
         await context.bot.send_message(chat_id=update.message.chat_id, text="Error generating meme.")
 
 async def handle_photo(update: Update, context: CallbackContext) -> None:
