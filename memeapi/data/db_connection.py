@@ -1,5 +1,6 @@
+from config import mongo_collection, mongo_db, mongo_url
 from pymongo import MongoClient
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["meme_db"]
-collection = db["memes"]
+client = MongoClient(mongo_url)
+db = client[mongo_db]
+collection = db[mongo_collection]
