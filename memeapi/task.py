@@ -4,6 +4,7 @@ import numpy as np
 import torch
 from config import model_path
 from diffusers import DiffusionPipeline
+from PIL import Image
 from safetensors.torch import load_file
 
 
@@ -19,6 +20,9 @@ def _get_sd_pipeline(model_path: str):
 
 
 pipe = _get_sd_pipeline(model_path=model_path)
+image_path = "pepememe.jpeg"
+init_image = Image.open(image_path).convert("RGB")
+init_image = init_image.resize((512, 512))  # 确保尺寸合适
 
 
 def generate_meme_images(
@@ -36,9 +40,11 @@ def generate_meme_images(
         prompt=prompt,
         negative_prompt=negative_prompt,
         num_inference_steps=num_inference_steps,
-        guidance_scale=9.5,
+        image=init_image,
+        strength=1,     
+        guidance_scale=5,
         safety_checker=None,
-        height=256,
-        width=256,
+        height=512,
+        width=512,
     ).images[0]
-    return img
+    return img.resize((256, 256))

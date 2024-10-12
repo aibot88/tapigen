@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # 添加消息处理器
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    application.add_handler(MessageHandler(filters.PHOTO, handle_photo))
+    # application.add_handler(MessageHandler(filters.PHOTO, handle_photo))
     application.add_handler(InlineQueryHandler(inline_meme_query))
 
     application.run_polling()

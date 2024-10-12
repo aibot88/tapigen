@@ -60,3 +60,11 @@ def generate_meme(prompt):
     _wait_meme_task_success(task_id=task_id)
 
     return _get_meme_task_img(task_id=task_id)
+
+def generate_meme_url(prompt):
+    # create generate meme task
+    task_id = _create_meme_task(prompt=prompt)
+
+    _wait_meme_task_success(task_id=task_id)
+
+    return f"{API_URL}/meme/{task_id}"

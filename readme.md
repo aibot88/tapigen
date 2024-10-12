@@ -6,7 +6,7 @@ This project is a Telegram bot that interacts with the `memeapi` to generate mem
     1. python 3, for example `conda create -n meme python=3.9`
     2. `pip install -r requirements`, get the dependcies for this proj
     3. get mongo db, for exampel `sudo docker run --name some-mongo -d mongo:latest`
-    4. Firstly, start the memeapi, with the command `cd memeapi; python main.py`, which listen in 8000 port and nginxed with the port 443. We recommand you to confiure your own nginx config
+    4. Firstly, start the memeapi, with the command `cd memeapi; python main.py`, which listen in 8000 port and nginxed with the port 443. We recommand you to confiure your own nginx config. Use command python celery.py to start a celery worker.
     5. Then, start the telegram robot, with the commadn `cd imbot; python main.py`. you will get an error on the cmd, if you do not export the evn_variable API_URL(the https url of the api service started in 4) and the env_variable TOKEN(your telegram robot token)
 With above configuration, you will get your own bot and enjoy. 
 ## Features
@@ -16,3 +16,9 @@ With above configuration, you will get your own bot and enjoy.
 - **Inline Query Support**: Allows users to generate memes via inline queries.
 - **Menu Navigation**: Provides interactive menus with inline buttons.
 
+## Modification Log
+
+### 1009
+Use celery to run generate meme image task. Because running generate meme image task in celery, the API will not return the image directly, but return a task id. You need to use this task id to query the task status, wait the task be successful, and then get the image by the task id.
+
+Need to start celery workers before start the server. Use command python celery.py to start a celery worker.
