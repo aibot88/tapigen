@@ -4,7 +4,7 @@ from services import save_meme_data
 from task import generate_meme_images
 from utils import encode_image_bytes
 
-celery = Celery("memeapi", broker=redis_url, backend=redis_url, include=["celery"])
+celery = Celery("memeapi", broker=redis_url, backend=redis_url, include=["celery_worker"])
 
 
 @celery.task(bind=True)
